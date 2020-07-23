@@ -20,22 +20,35 @@ func in_array(str string, list []string) bool {
 	return false
 }
 
+func getNsRecords(domainName string) ([]string, error) {
+	var ret []string
+	nss, err := net.LookupNS(domainName)
+	if err != nil {
+		return nil, errors.New("Lookup Error.\n")
+	}
+	for _, ns := range nss {
+		ret = append(ret, ns.Host)
+	}
+	return ret, nil
+}
+
 func checkNs(domainName string, expectString string) error {
 	nsValueList := strings.Split(expectString, ",")
 
-	nss, err := net.LookupNS(domainName)
+	records, err := getNsRecords(domainName)
+
 	if err != nil {
 		return errors.New("Lookup Error.\n")
 	}
-	if len(nss) == 0 {
+	if len(records) == 0 {
 		return errors.New("no NS record.\n")
 	}
-	if len(nsValueList) != len(nss) {
+	if len(nsValueList) != len(records) {
 		return errors.New("Warging. no Match Record count.\n")
 	}
 
-	for _, ns := range nss {
-		if !in_array(ns.Host, nsValueList) {
+	for _, record := range records {
+		if !in_array(record, nsValueList) {
 			return errors.New("Warging. no Match Record value.\n")
 		}
 	}
