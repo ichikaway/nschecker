@@ -3,12 +3,12 @@ Check correct DNS NS records.
 
 ## Usage
 ```
-go run NsCheck.go <your domain> <NS records with comma> 
+go run NsCheck.go Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 ### Example
 ```
-go run NsCheck.go  "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
+go run NsCheck.go NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
 ```
 
 ### Results
