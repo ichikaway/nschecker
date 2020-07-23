@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"net"
 	"os"
 	"strings"
@@ -16,34 +17,34 @@ func in_array(str string, list []string) bool {
 	return false
 }
 
-func checkNs(domainName string, expectString string) (string, bool) {
+func checkNs(domainName string, expectString string) error {
 	nsValueList := strings.Split(expectString, ",")
 
 	nss, err := net.LookupNS(domainName)
 	if err != nil {
-		return "Lookup Error.\n", false
+		return errors.New("Lookup Error.\n")
 	}
 	if len(nss) == 0 {
-		return "no NS record.\n", false
+		return errors.New("no NS record.\n")
 	}
 	if len(nsValueList) != len(nss) {
-		return "Warging. no Match Record count.\n", false
+		return errors.New("Warging. no Match Record count.\n")
 	}
 
 	for _, ns := range nss {
 		if !in_array(ns.Host, nsValueList) {
-			return "Warging. no Match Record value.\n", false
+			return errors.New("Warging. no Match Record value.\n")
 		}
 	}
-	return "ok\n", true
+	return nil
 }
 
 func main() {
 	var domainName string = os.Args[1]
 	var nsListString string = os.Args[2]
 
-	result, err := checkNs(domainName, nsListString)
-	if err == false {
-		panic(result)
+	err := checkNs(domainName, nsListString)
+	if err != nil {
+		panic(err)
 	}
 }
