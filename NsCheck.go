@@ -31,8 +31,8 @@ func checkNs(domainName string, expectString string) (string, bool) {
 	}
 
 	for _, ns := range nss {
-		if (!in_array(ns.Host, nsValueList)) {
-			return "Warging. no Match Record value.\n",false
+		if !in_array(ns.Host, nsValueList) {
+			return "Warging. no Match Record value.\n", false
 		}
 	}
 	return "ok\n", true
