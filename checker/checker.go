@@ -63,11 +63,17 @@ func CheckRecord(qType string, domainName string, expectString string) error {
 
 	for _, record := range records {
 		if !in_array(record, nsValueList) {
-			fmt.Printf("Error actual DNS records:\n")
+			message := "Error actual DNS records:\n"
 			for _, actualRecord := range records {
-				fmt.Printf("  %s\n", actualRecord)
+				message += fmt.Sprintf("  %s\n", actualRecord)
 			}
-			return errors.New("Error: not match DNS record value.\n")
+
+			message += "\nExpect DNS records:\n"
+			for _, expectRecord := range nsValueList {
+				message += fmt.Sprintf("  %s\n", strings.TrimSpace(expectRecord))
+			}
+
+			return errors.New("Error: not match DNS record value.\n" + message)
 		}
 	}
 	return nil
