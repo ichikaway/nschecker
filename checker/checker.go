@@ -58,12 +58,12 @@ func CheckRecord(qType string, domainName string, expectString string) error {
 		return errors.New("Error: Lookup Error.\n")
 	}
 	if len(records) == 0 {
-		return errors.New("Error: no NS record.\n")
+		return errors.New("Error: no record.\n")
 	}
 
 	for _, record := range records {
 		if !in_array(record, nsValueList) {
-			message := "Error actual DNS records:\n"
+			message := "Error actual DNS records(" + qType + "):\n"
 			for _, actualRecord := range records {
 				message += fmt.Sprintf("  %s\n", actualRecord)
 			}
