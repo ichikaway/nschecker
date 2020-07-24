@@ -22,7 +22,7 @@ NsCheck sends error message to the slack channel when detecting errors or DNS re
 
 ```cassandraql
 export SLACK_WEBHOOK_URL="webhook url"
-export SLACK_MENTION="<!channel>" #optional
+export SLACK_FREE_TEXT="<!channel> from AWS lambda" #optional
 export SLACK_USERNAME="your user" #optional
 export SLACK_CHANNEL="your channel" #optional
 export SLACK_ICON_EMOJI=":smile:" #optional

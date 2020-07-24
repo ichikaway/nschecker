@@ -34,9 +34,9 @@ func PostSlack(title, text string, domain string, qType string) {
 		if !ok5 {
 			iconURL = ""
 		}
-		toUser, ok6 := os.LookupEnv("SLACK_MENTION")
+		freeText, ok6 := os.LookupEnv("SLACK_FREE_TEXT")
 		if !ok6 {
-			toUser = ""
+			freeText = ""
 		}
 
 		type attachments struct {
@@ -54,17 +54,19 @@ func PostSlack(title, text string, domain string, qType string) {
 			Attachements []attachments `json:"attachments"`
 		}
 
+		textPrefix := fmt.Sprintf("Type: %s, Domain: %s\n\n", qType, domain)
+
 		webhooks := slack{
 			Username:  slackUsername,
 			IconEmoji: iconEmoji,
 			IconURL:   iconURL,
 			Channel:   slackChannel,
-			Text:      toUser + " NsCheck " + qType + ", Domain: " + domain,
+			Text:      freeText,
 			Attachements: []attachments{
 				{
 					Color: "warning",
 					Title: title,
-					Text:  text,
+					Text:  textPrefix + text,
 				},
 			},
 		}
