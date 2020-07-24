@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"nscheck/checker"
+	"nscheck/notification"
 	"os"
 )
 
@@ -29,6 +30,7 @@ func main() {
 
 	err := checker.CheckRecord(qType, domainName, nsListString)
 	if err != nil {
+		notification.PostSlack("NsCheck (Ver. "+VERSION+")", err.Error(), domainName, qType)
 		panic(err)
 	}
 }
