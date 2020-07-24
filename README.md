@@ -16,6 +16,18 @@ go run NsCheck.go NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.
 Return status code 0 if there is no problem.  
 Return status code 1 or higher with error message if there there are problems.
 
+## Slack Notification
+Set slack webhook settings on OS env, 
+NsCheck sends error message to the slack channel when detecting errors or DNS record changing.
+
+```cassandraql
+export SLACK_WEBHOOK_URL="webhook url"
+export SLACK_MENTION="<!channel>" #optional
+export SLACK_USERNAME="your user" #optional
+export SLACK_CHANNEL="your channel" #optional
+export SLACK_ICON_EMOJI=":smile:" #optional
+export SLACK_ICON_URL="icon url" #optional
+```
 
 ## 何のため？
 DNSレジストラへの不正アクセスなどでNSレコードが改竄され、ドメインが乗っ取られるケースがあります。  
