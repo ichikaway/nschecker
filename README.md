@@ -5,12 +5,12 @@ To detect if DNS records have been tampered with by unauthorized access to DNS r
 ## Usage
 #### for Linux user
 ```
-./bin/vaddy-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./bin/nschecker-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 #### for Mac user
 ```
-./bin/vaddy-macosx-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./bin/nschecker-macosx-64bit Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 #### or, go run command.
@@ -20,7 +20,7 @@ go run NsCheck.go Type(NS/MX) <your domain> <NS records with comma>
 
 ### Example
 ```
-./bin/vaddy-linux-64bit NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
+./bin/nschecker-linux-64bit NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
 ```
 
 ## Results
