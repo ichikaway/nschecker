@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 /*
 func TestMessage(t *testing.T) {
 	q := try("www.vaddy.net")
@@ -26,10 +25,10 @@ func TestMessage(t *testing.T) {
 	//binary.Write(b, binary.BigEndian, h)
 	//binary.Write(b, binary.LittleEndian, &a)
 	/*
-	fmt.Printf("hex: %x\n",b.Bytes())
-	fmt.Printf("hex: %x\n",b)
-	fmt.Printf("bin: %b\n",b.Bytes())
-	fmt.Printf("len: %d\n",len(b.Bytes()))
+		fmt.Printf("hex: %x\n",b.Bytes())
+		fmt.Printf("hex: %x\n",b)
+		fmt.Printf("bin: %b\n",b.Bytes())
+		fmt.Printf("len: %d\n",len(b.Bytes()))
 	*/
 	fmt.Printf("bin: %b\n", req)
 	// ea60 0100 0001 0000 0000 0000
@@ -41,5 +40,3 @@ func TestMessage(t *testing.T) {
 	req2 := NewQuestionPayload(q)
 	fmt.Printf("bin question: %b\n", req2)
 }
-
-

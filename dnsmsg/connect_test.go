@@ -6,8 +6,9 @@ import (
 
 type A struct {
 	Int32Field int32
-	ByteField byte
+	ByteField  byte
 }
+
 /*
 func TestConnect(t *testing.T) {
 	//Send([]byte("Hello from Client"))

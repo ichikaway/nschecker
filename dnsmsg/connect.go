@@ -9,7 +9,7 @@ func Send(address string, message []byte) {
 	//conn, err := net.Dial("udp4", "127.0.0.1:10000")
 	conn, err := net.Dial("udp4", address)
 	if err != nil {
-			panic(err)
+		panic(err)
 	}
 	defer conn.Close()
 	fmt.Println("Sending to server")

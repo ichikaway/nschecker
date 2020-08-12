@@ -43,11 +43,10 @@ type Question struct {
 }
 
 type Message struct {
-	Header Header
-	Header2 Header2
+	Header   Header
+	Header2  Header2
 	Question Question
 }
-
 
 func NewId() uint16 {
 	return uint16(rand.Int()) ^ uint16(time.Now().UnixNano())
@@ -72,7 +71,7 @@ func NewHeaderPayload(h Header) []byte {
 	buf.WriteByte(h_16)
 
 	h_24 = h.RA << 7
-	h_24 |= h.Z << (7 - 3) //3bit
+	h_24 |= h.Z << (7 - 3)           //3bit
 	h_24 |= byte(h.RCode) << (7 - 7) //4bit
 	buf.WriteByte(h_24)
 
@@ -83,7 +82,6 @@ func NewHeaderPayload(h Header) []byte {
 	binary.Write(buf, binary.BigEndian, h2.AR)
 	return buf.Bytes()
 }
-
 
 func NewQuestion(name string, qtype Type) Question {
 	q := Question{
@@ -112,4 +110,3 @@ func NewQuestionPayload(q Question) []byte {
 	binary.Write(buf, binary.BigEndian, byte(0)) //end
 	return buf.Bytes()
 }
-
