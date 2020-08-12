@@ -68,12 +68,12 @@ func NewHeaderPayload(h Header) []byte {
 	h_16 |= h.AA << (7 - 5)
 	h_16 |= h.TC << (7 - 6)
 	h_16 |= h.RD << (7 - 7)
-	buf.WriteByte(h_16)
+	binary.Write(buf, binary.BigEndian, h_16)
 
 	h_24 = h.RA << 7
 	h_24 |= h.Z << (7 - 3)           //3bit
 	h_24 |= byte(h.RCode) << (7 - 7) //4bit
-	buf.WriteByte(h_24)
+	binary.Write(buf, binary.BigEndian, h_24)
 
 	h2 := Header2{QD: 1}
 	binary.Write(buf, binary.BigEndian, h2.QD)
