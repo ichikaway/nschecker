@@ -24,5 +24,6 @@ func Send(address string, message []byte) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Received: %s\n", string(buffer[:length]))
+	fmt.Printf("Received(x): %x\n", buffer[:length])
+	fmt.Printf("Received(s): %s\n", string(buffer[:length]))
 }
