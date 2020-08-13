@@ -32,8 +32,10 @@ func TestConnect(t *testing.T) {
 	id := uint16(60000)
 	h := NewHeader(id)
 	header := NewHeaderPayload(h)
-	q := NewQuestion("vaddy.net", TypeNS)
+	q := NewQuestion("bitforest.jp", TypeNS)
+	//q := NewQuestion("vaddy.net", TypeNS)
 	question := NewQuestionPayload(q)
 	req := append(header, question...)
-	Send("192.168.12.1:53", req)
+	//Send("192.168.12.1:53", req) //local dns cache
+	Send("203.119.1.1:53", req) //a.dns.jp
 }
