@@ -5,8 +5,7 @@ import (
 	"net"
 )
 
-func Send(address string, message []byte) {
-	//conn, err := net.Dial("udp4", "127.0.0.1:10000")
+func Send(address string, message []byte) []byte {
 	conn, err := net.Dial("udp4", address)
 	if err != nil {
 		panic(err)
@@ -24,6 +23,7 @@ func Send(address string, message []byte) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Received(x): %x\n", buffer[:length])
-	fmt.Printf("Received(s): %s\n", string(buffer[:length]))
+	//fmt.Printf("Received(x): %x\n", buffer[:length])
+	//fmt.Printf("Received(s): %s\n", string(buffer[:length]))
+	return buffer[:length]
 }
