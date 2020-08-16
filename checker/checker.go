@@ -18,6 +18,7 @@ func in_array(str string, list []string) bool {
 	return false
 }
 
+// for getting NS records, try to get NS rr from DNS root servers.
 func getNsRecords(domainName string) ([]string, error) {
 	return dnsmsg.Lookup(domainName)
 }

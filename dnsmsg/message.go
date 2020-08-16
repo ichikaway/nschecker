@@ -10,6 +10,7 @@ import (
 
 type Type uint16
 
+// CLASS inet
 const CLASS_INET uint16 = 1
 
 const (
@@ -42,6 +43,7 @@ type Question struct {
 	Class uint16
 }
 
+// create header.id value
 func NewId() uint16 {
 	return uint16(rand.Int()) ^ uint16(time.Now().UnixNano())
 }
