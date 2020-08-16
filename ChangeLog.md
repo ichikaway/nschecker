@@ -1,5 +1,8 @@
 # NSchecker changelog
 
+## Ver 0.03 (2020/8/16)
+Output information to stdout.
+
 ## Ver 0.02 (2020/8/16)
 - lookup from root DNS servers
   - .com / .net / .jp 
