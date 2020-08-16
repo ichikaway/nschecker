@@ -24,6 +24,7 @@ func getNsRecords(domainName string) ([]string, error) {
 
 func getMxRecords(domainName string) ([]string, error) {
 	var ret []string
+	fmt.Println(" ..lookup from local DNS cache server.\n")
 	nss, err := net.LookupMX(domainName)
 	if err != nil {
 		return nil, errors.New("MX Lookup Error.\n")

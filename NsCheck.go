@@ -10,12 +10,12 @@ import (
 var VERSION = "0.02"
 
 func showError() {
-	fmt.Printf("NsCheck Version: %s\n", VERSION)
 	fmt.Printf("USAGE: go run NsCheck.go Type(NS or MX) 'domain' 'ns records' \n")
 	os.Exit(1)
 }
 
 func main() {
+	fmt.Printf("=== NsCheck Version: %s === \n", VERSION)
 	if len(os.Args) < 4 {
 		showError()
 	}
@@ -28,9 +28,18 @@ func main() {
 	var domainName string = os.Args[2]
 	var nsListString string = os.Args[3]
 
+	infoDump(domainName, qType, nsListString)
+
 	err := checker.CheckRecord(qType, domainName, nsListString)
 	if err != nil {
 		notification.PostSlack("NsCheck (Ver. "+VERSION+")", err.Error(), domainName, qType)
 		panic(err)
 	}
+}
+
+func infoDump(domainName string, qType string, nsListString string) {
+	fmt.Println(" - Domain: " + domainName)
+	fmt.Println(" - Type: " + qType)
+	fmt.Println(" - List: " + nsListString)
+	fmt.Println("")
 }
