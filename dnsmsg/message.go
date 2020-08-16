@@ -14,7 +14,7 @@ const CLASS_INET uint16 = 1
 
 const (
 	TypeNS Type = 2
-	TypeMX Type = 15
+	//TypeMX Type = 15
 )
 
 type Header struct {
@@ -42,18 +42,12 @@ type Question struct {
 	Class uint16
 }
 
-type Message struct {
-	Header   Header
-	Header2  Header2
-	Question Question
-}
-
 func NewId() uint16 {
 	return uint16(rand.Int()) ^ uint16(time.Now().UnixNano())
 }
 
 func NewHeader(id uint16) Header {
-	return Header{ID: id, RD: 1}
+	return Header{ID: id, RD: 0} // RD=0 to use TLD DNS servers.
 }
 
 func NewHeaderPayload(h Header) []byte {
