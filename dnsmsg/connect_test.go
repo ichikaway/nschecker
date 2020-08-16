@@ -41,7 +41,10 @@ func TestConnectJp(t *testing.T) {
 
 	var m dnsmessage.Message
 	m.Unpack(buf)
-	fmt.Print(m)
+	//fmt.Print(m)
+	rb := m.Authorities[0].Body.(*dnsmessage.NSResource)
+	//rb := m.Answers[0].Body.(*dnsmessage.NSResource)
+	fmt.Println(rb.NS.String())
 }
 func TestConnectNet(t *testing.T) {
 	id := uint16(60000)
@@ -51,8 +54,35 @@ func TestConnectNet(t *testing.T) {
 	question := NewQuestionPayload(q)
 	req := append(header, question...)
 	buf := Send("m.gtld-servers.net:53", req)
+	//buf := Send("ns-700.awsdns-23.net:53", req)
 
 	var m dnsmessage.Message
 	m.Unpack(buf)
-	fmt.Print(m)
+	//a := m.Answers[0]
+	//var rb dnsmessage.NSResource = a
+	//rb := m.Authorities[0].Body.(*dnsmessage.NSResource)
+	if len(m.Authorities) == 0 {
+		//error
+	}
+
+	var ret []string
+	for _, authrotiy := range m.Authorities {
+		rr := authrotiy.Body.(*dnsmessage.NSResource)
+		ret = append(ret, rr.NS.String())
+	}
+
+	fmt.Println(ret)
+
+	//rb := m.Answers[0].Body.(*dnsmessage.NSResource)
+	//fmt.Println(rb.NS.String())
+	/*
+		fmt.Printf("%x", m.Answers[0].Body.(*dnsmessage.NSResource))
+		fmt.Printf("%s", m.Answers[0].Body)
+		fmt.Printf("%+v", m.Answers[0].Body)
+		fmt.Printf("%#v", m.Answers[0].Body)
+		fmt.Print(m.Answers[0].Body)
+		fmt.Print(m.Answers[1].Body)
+		fmt.Print(m.Answers[2].Body)
+		fmt.Print(m.Answers[3].Body)
+	*/
 }
