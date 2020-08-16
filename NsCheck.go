@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var VERSION = "0.01"
+var VERSION = "0.02"
 
 func showError() {
 	fmt.Printf("NsCheck Version: %s\n", VERSION)
