@@ -15,7 +15,7 @@ func PostSlack(title, text string, domain string, qType string) {
 		return
 	}
 
-	fmt.Println("Posting message to slack.")
+	fmt.Println("Sending warning message to slack.")
 
 	if ok1 {
 		slackUsername, ok2 := os.LookupEnv("SLACK_USERNAME")
