@@ -2,6 +2,15 @@
 DNS record changing detection tool. 
 To detect if DNS records have been tampered with by unauthorized access to DNS registrar.
 
+## lookup without dns cache
+NSchecker looks up NS records from DNS root servers when your domain is
+- .net / .com / .jp domain
+- 2nd level domain only (ex. example.com)
+
+For instance, 
+your domain is foo.co.jp (3rd level domain) or foo.info(not net/com/jp),
+NSchecker uses a local dns cache server.
+
 ## Usage
 #### for Linux user
 ```
@@ -48,3 +57,14 @@ DNSレジストラへの不正アクセスなどでNSレコードが改竄され
 問題があれば1以上のステータスコードを返してエラーメッセージや現在DNS登録されているレコード情報を出力します。  
 
 cronで定期実行すれば問題がある時のみslack通知するため、意図しないNS/MXの変更に早く気付けます。
+
+
+## DNSキャッシュの影響は? 
+
+下記の条件を満たす場合は、NSレコードについてDNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
+
+- .com / .net / .jp のいずれかのドメイン
+- セカンドレベルドメイン
+
+例えば、vaddy.net の場合はNSレコードはDNS Rootサーバから取得するためDNSキャッシュの影響はうけません。  
+foo.co.jpのように3階層以上のドメインや、上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
