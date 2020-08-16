@@ -2,7 +2,6 @@ package dnsmsg
 
 import (
 	"errors"
-	"fmt"
 	"golang.org/x/net/dns/dnsmessage"
 	"net"
 	"strings"
@@ -20,10 +19,10 @@ func getTldServers() map[string]string {
 func Lookup(domainName string) ([]string, error) {
 	server, err := getAuthorityServerName(domainName)
 	if err != nil {
-		fmt.Println("lookup From DNS cache server.")
+		//fmt.Println("lookup From DNS cache server.")
 		return lookupFromDnsCacheServer(domainName)
 	}
-	fmt.Println("lookup From DNS root server. " + server)
+	//fmt.Println("lookup From DNS root server. " + server)
 	return lookupFromDnsRoot(domainName, server)
 }
 
