@@ -2,7 +2,7 @@
 DNS record changing detection tool. 
 To detect if DNS records have been tampered with by unauthorized access to DNS registrar.
 
-## lookup without dns cache
+## Lookup with NO dns cache
 NSchecker looks up NS records from DNS root servers when your domain is
 - .net / .com / .jp domain
 - 2nd level domain only (ex. example.com)
@@ -10,6 +10,8 @@ NSchecker looks up NS records from DNS root servers when your domain is
 For instance, 
 your domain is foo.co.jp (3rd level domain) or foo.info(not net/com/jp),
 NSchecker uses a local dns cache server.
+
+For MX records, it always uses a local dns cache server.
 
 ## Usage
 #### for Linux user
