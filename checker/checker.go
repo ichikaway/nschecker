@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"nscheck/dnsmsg"
 	"strings"
 )
 
@@ -18,31 +19,7 @@ func in_array(str string, list []string) bool {
 }
 
 func getNsRecords(domainName string) ([]string, error) {
-	var ret []string
-
-	/*
-		r := &net.Resolver{
-			PreferGo: true,
-			Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
-				d := net.Dialer{
-					Timeout: time.Millisecond * time.Duration(10000),
-				}
-				return d.DialContext(ctx, "udp", "a.gtld-servers.net:53")
-				//return d.DialContext(ctx, "udp", "ns-700.awsdns-23.net:53")
-				//return d.DialContext(ctx, "udp", "192.55.83.30:53")
-			},
-		}
-		nss, err := r.LookupNS(context.Background(), domainName)
-	*/
-
-	nss, err := net.LookupNS(domainName)
-	if err != nil {
-		return nil, errors.New("NS Lookup Error.\n")
-	}
-	for _, ns := range nss {
-		ret = append(ret, ns.Host)
-	}
-	return ret, nil
+	return dnsmsg.Lookup(domainName)
 }
 
 func getMxRecords(domainName string) ([]string, error) {
