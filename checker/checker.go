@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"nscheck/dnsmsg"
 	"strings"
 )
 
@@ -18,15 +19,7 @@ func in_array(str string, list []string) bool {
 }
 
 func getNsRecords(domainName string) ([]string, error) {
-	var ret []string
-	nss, err := net.LookupNS(domainName)
-	if err != nil {
-		return nil, errors.New("NS Lookup Error.\n")
-	}
-	for _, ns := range nss {
-		ret = append(ret, ns.Host)
-	}
-	return ret, nil
+	return dnsmsg.Lookup(domainName)
 }
 
 func getMxRecords(domainName string) ([]string, error) {
