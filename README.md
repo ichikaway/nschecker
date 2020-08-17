@@ -8,7 +8,7 @@ NSchecker looks up NS records from DNS root servers when your domain is
 - 2nd/3rd level domain only (ex. example.com)
 
 For instance, 
-your domain is foo.co.jp (3rd level domain) or foo.info(not net/com/jp),
+your domain is foo.bar.co.jp (4th level domain) or foo.info(not net/com/jp),
 NSchecker uses a local dns cache server.
 
 For MX records, it always uses a local dns cache server.
