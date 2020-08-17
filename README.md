@@ -40,7 +40,7 @@ Return status code 1 or higher with error message if there there are problems.
 
 ## Slack Notification
 Set slack webhook settings on OS env, 
-NsCheck sends error message to the slack channel when detecting errors or DNS record changing.
+NSchecker sends error message to the slack channel when detecting errors or DNS record changing.
 
 ```cassandraql
 export SLACK_WEBHOOK_URL="webhook url"

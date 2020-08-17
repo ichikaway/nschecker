@@ -15,7 +15,7 @@ func showError() {
 }
 
 func main() {
-	fmt.Printf("=== NsCheck Version: %s === \n", VERSION)
+	fmt.Printf("=== NSchecker Version: %s === \n", VERSION)
 	if len(os.Args) < 4 {
 		showError()
 	}
@@ -32,7 +32,7 @@ func main() {
 
 	err := checker.CheckRecord(qType, domainName, nsListString)
 	if err != nil {
-		notification.PostSlack("NsCheck (Ver. "+VERSION+")", err.Error(), domainName, qType)
+		notification.PostSlack("NSchecker (Ver. "+VERSION+")", err.Error(), domainName, qType)
 		panic(err)
 	}
 }
