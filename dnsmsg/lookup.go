@@ -30,14 +30,16 @@ func Lookup(domainName string) ([]string, error) {
 // get DNS server for looking up name from DNS root servers.
 func getAuthorityServerName(domainName string) (string, error) {
 	labels := strings.Split(domainName, ".")
-	if len(labels) != 2 {
-		return "", errors.New("not support domain name.")
+
+	// supports 2nd/3rd level domain only
+	if len(labels) == 1 || len(labels) >= 4 {
+		return "", errors.New("not support domain level.")
 	}
-	gTldLabel := labels[1]
+	gTldLabel := labels[len(labels)-1] //get last value in array
 	servers := getTldServers()
 	server, ok := servers[gTldLabel]
 	if !ok {
-		return "", errors.New("not support domain name.")
+		return "", errors.New("not support TLD name.")
 	}
 	return server, nil
 }

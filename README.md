@@ -5,7 +5,7 @@ To detect if DNS records have been tampered with by unauthorized access to DNS r
 ## Lookup with NO dns cache
 NSchecker looks up NS records from DNS root servers when your domain is
 - .net / .com / .jp domain
-- 2nd level domain only (ex. example.com)
+- 2nd/3rd level domain only (ex. example.com)
 
 For instance, 
 your domain is foo.co.jp (3rd level domain) or foo.info(not net/com/jp),
@@ -66,9 +66,9 @@ cronで定期実行すれば問題がある時のみslack通知するため、�
 下記の条件を満たす場合は、NSレコードについてDNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
 
 - .com / .net / .jp のいずれかのドメイン
-- セカンドレベルドメイン
+- 2nd/3rdレベルドメイン
 
 例えば、vaddy.net の場合はNSレコードはDNS Rootサーバから取得するためDNSキャッシュの影響はうけません。  
-foo.co.jpのように3階層以上のドメインや、上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
+foo.bar.buz.co.jpのように4階層以上のドメインや、上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
 
 MXレコードはローカルDNSキャッシュサーバを参照します。
