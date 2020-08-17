@@ -26,7 +26,7 @@ For MX records, it always uses a local dns cache server.
 
 #### or, go run command.
 ```
-go run NsCheck.go Type(NS/MX) <your domain> <NS records with comma> 
+go run NSchecker.go Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 ### Example
