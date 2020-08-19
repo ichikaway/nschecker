@@ -1,5 +1,8 @@
 # NSchecker changelog
 
+## Ver 0.04 (2020/8/17)
+support 3rd level domain.
+
 ## Ver 0.03 (2020/8/16)
 Output information to stdout.
 
