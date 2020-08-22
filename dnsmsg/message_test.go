@@ -1,6 +1,7 @@
 package dnsmsg
 
 import (
+	"bytes"
 	"fmt"
 	"testing"
 )
@@ -39,4 +40,27 @@ func TestMessage(t *testing.T) {
 	q := NewQuestion("vaddy.net", TypeNS)
 	req2 := NewQuestionPayload(q)
 	fmt.Printf("bin question: %b\n", req2)
+}
+
+func TestCreateDomainLabel2ndLevel(t *testing.T) {
+	var name string = "vaddy.net"
+	var expect []byte = []byte{0x05, 0x76, 0x61, 0x64, 0x64, 0x79, 0x03, 0x6e, 0x65, 0x74} //5vaddy3net
+	result := createDomainLabel(name)
+	if bytes.Compare(result, expect) != 0 {
+		fmt.Printf("expect: %b\n", expect)
+		fmt.Printf("result: %b\n", result)
+		fmt.Printf("result: %x\n", result)
+		t.Fail()
+	}
+}
+func TestCreateDomainLabel3rdLevel(t *testing.T) {
+	var name string = "aa.vaddy.net"
+	var expect []byte = []byte{0x02, 0x61, 0x61, 0x05, 0x76, 0x61, 0x64, 0x64, 0x79, 0x03, 0x6e, 0x65, 0x74} //2aa5vaddy3net
+	result := createDomainLabel(name)
+	if bytes.Compare(result, expect) != 0 {
+		fmt.Printf("expect: %b\n", expect)
+		fmt.Printf("result: %b\n", result)
+		fmt.Printf("result: %x\n", result)
+		t.Fail()
+	}
 }
