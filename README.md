@@ -1,17 +1,24 @@
 # NSchecker
-DNS record changing detection tool. 
-To detect if DNS records have been tampered with by unauthorized access to DNS registrar.
+DNS record changing detection tool with slack notification.  
+It is easy to use as we provide an executable files for Linux, MacOS.
 
-## Lookup with NO dns cache
-NSchecker looks up NS records from DNS root servers when your domain is
-- .net / .com / .jp domain
-- 2nd/3rd level domain only (ex. example.com)
+In some cases, NS records have been tampered with by unauthorized access to DNS registrars and the domain has been hijacked.
+In order to detect such cases, this tool checks if the NS records are correct.
 
-For instance, 
-your domain is foo.bar.co.jp (4th level domain) or foo.info(not net/com/jp),
-NSchecker uses a local dns cache server.
+If you run cron regularly, it will only notify you of slack when there is a problem, so you can be aware of unintentional NS/MX changes before they happen.
 
-For MX records, it always uses a local dns cache server.
+
+## Lookup with No dns cache
+If the following conditions are met, the NS records will be retrieved from the DNS Root server and will not be affected by caching.
+
+- One of the following domains: .com / .net / .jp
+- 2nd/3rd level domain
+
+For example, `vaddy.net` is not affected by DNS caching because NS records are retrieved from the DNS Root server.  
+For domains with more than 4 levels, such as `foo.bar.buz.co.jp`, or other domains not listed above, the local DNS cache server is used.
+
+MX records refer to the local DNS cache server.
+
 
 ## Usage
 #### for Linux user
