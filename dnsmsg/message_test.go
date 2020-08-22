@@ -15,6 +15,7 @@ func TestMessage(t *testing.T) {
 	fmt.Printf("%v", udpReq)
 }
 */
+/*
 func TestMessage(t *testing.T) {
 	id := uint16(60000)
 	h := NewHeader(id)
@@ -25,12 +26,12 @@ func TestMessage(t *testing.T) {
 	//b := bytes.NewBuffer([]byte(""))
 	//binary.Write(b, binary.BigEndian, h)
 	//binary.Write(b, binary.LittleEndian, &a)
-	/*
-		fmt.Printf("hex: %x\n",b.Bytes())
-		fmt.Printf("hex: %x\n",b)
-		fmt.Printf("bin: %b\n",b.Bytes())
-		fmt.Printf("len: %d\n",len(b.Bytes()))
-	*/
+
+	//fmt.Printf("hex: %x\n",b.Bytes())
+	//fmt.Printf("hex: %x\n",b)
+	//fmt.Printf("bin: %b\n",b.Bytes())
+	//fmt.Printf("len: %d\n",len(b.Bytes()))
+
 	fmt.Printf("bin: %b\n", req)
 	// ea60 0100 0001 0000 0000 0000
 
@@ -41,6 +42,7 @@ func TestMessage(t *testing.T) {
 	req2 := NewQuestionPayload(q)
 	fmt.Printf("bin question: %b\n", req2)
 }
+*/
 
 func TestCreateDomainLabel2ndLevel(t *testing.T) {
 	var name string = "vaddy.net"
