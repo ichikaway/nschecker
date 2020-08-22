@@ -6,6 +6,11 @@ import (
 )
 
 func getNsListFromDnsResponse(message []byte) ([]string, error) {
+	//fmt.Printf("dnsresponse: %s\n", message)
+	//fmt.Printf("dnsresponse: %#08b\n", message)
+	//fmt.Printf("dnsresponse: %#b\n", message)
+	//fmt.Printf("dnsresponse: %08b\n", message)
+	//fmt.Printf("dnsresponse: %x\n", message)
 	var ret []string
 	var m dnsmessage.Message
 	err := m.Unpack(message)
