@@ -58,8 +58,6 @@ func lookupFromDnsCacheServer(domainName string) ([]string, error) {
 }
 
 func lookupFromDnsRoot(domainName string, dnsServer string) ([]string, error) {
-	var ret []string
-
 	id := NewId()
 	h := NewHeader(id)
 	header := NewHeaderPayload(h)
@@ -68,13 +66,23 @@ func lookupFromDnsRoot(domainName string, dnsServer string) ([]string, error) {
 	req := append(header, question...)
 
 	// sending UDP
-	buf, err := Send(dnsServer+":53", req)
+	message, err := Send(dnsServer+":53", req)
 	if err != nil {
 		return nil, err
 	}
 
+	ret, err := getNsListFromDnsResponse(message)
+	if err != nil {
+		return nil, err
+	}
+
+	return ret, nil
+}
+
+func getNsListFromDnsResponse(message []byte) ([]string, error) {
+	var ret []string
 	var m dnsmessage.Message
-	err = m.Unpack(buf)
+	err := m.Unpack(message)
 	if err != nil {
 		return nil, err
 	}
