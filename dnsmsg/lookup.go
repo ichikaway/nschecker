@@ -20,7 +20,7 @@ func getTldServers() map[string]string {
 func Lookup(domainName string) ([]string, error) {
 	server, err := getAuthorityServerName(domainName)
 	if err != nil {
-		fmt.Println(" ..lookup from local DNS cache server.\n")
+		fmt.Print(" ..lookup from local DNS cache server.\n\n")
 		return lookupFromDnsCacheServer(domainName)
 	}
 	fmt.Printf(" ..lookup from DNS root server: %s \n\n", server)
