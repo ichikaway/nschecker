@@ -3,7 +3,6 @@ package dnsmsg
 import (
 	"errors"
 	"fmt"
-	"golang.org/x/net/dns/dnsmessage"
 	"net"
 	"strings"
 )
@@ -20,7 +19,7 @@ func getTldServers() map[string]string {
 func Lookup(domainName string) ([]string, error) {
 	server, err := getAuthorityServerName(domainName)
 	if err != nil {
-		fmt.Println(" ..lookup from local DNS cache server.\n")
+		fmt.Print(" ..lookup from local DNS cache server.\n\n")
 		return lookupFromDnsCacheServer(domainName)
 	}
 	fmt.Printf(" ..lookup from DNS root server: %s \n\n", server)
@@ -58,8 +57,6 @@ func lookupFromDnsCacheServer(domainName string) ([]string, error) {
 }
 
 func lookupFromDnsRoot(domainName string, dnsServer string) ([]string, error) {
-	var ret []string
-
 	id := NewId()
 	h := NewHeader(id)
 	header := NewHeaderPayload(h)
@@ -68,24 +65,15 @@ func lookupFromDnsRoot(domainName string, dnsServer string) ([]string, error) {
 	req := append(header, question...)
 
 	// sending UDP
-	buf, err := Send(dnsServer+":53", req)
+	message, err := Send(dnsServer+":53", req)
 	if err != nil {
 		return nil, err
 	}
 
-	var m dnsmessage.Message
-	err = m.Unpack(buf)
+	ret, err := getNsListFromDnsResponse(message)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(m.Authorities) == 0 {
-		return nil, errors.New("NS Lookup Error. No NS servers from DNS root.\n")
-	}
-
-	for _, authrotiy := range m.Authorities {
-		rr := authrotiy.Body.(*dnsmessage.NSResource)
-		ret = append(ret, rr.NS.String())
-	}
 	return ret, nil
 }

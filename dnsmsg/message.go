@@ -92,17 +92,25 @@ func NewQuestionPayload(q Question) []byte {
 	var buf = new(bytes.Buffer)
 
 	// www.example.com -> 3www7example3comに変換
-	slice := strings.Split(q.Name, ".")
-	for _, str := range slice {
-		//fmt.Printf("%b", byte(len(str)))
-		//fmt.Printf("%s\n", str)
-		binary.Write(buf, binary.BigEndian, byte(len(str)))
-		binary.Write(buf, binary.BigEndian, []byte(str))
-	}
+	label := createDomainLabel(q.Name)
+	binary.Write(buf, binary.BigEndian, label)
 	binary.Write(buf, binary.BigEndian, byte(0)) //end domain name
 
 	binary.Write(buf, binary.BigEndian, q.Type)
 	binary.Write(buf, binary.BigEndian, q.Class)
 	binary.Write(buf, binary.BigEndian, byte(0)) //end
 	return buf.Bytes()
+}
+
+// www.example.com -> 3www7example3comに変換
+func createDomainLabel(domainame string) []byte {
+	var ret []byte
+	slice := strings.Split(domainame, ".")
+	for _, str := range slice {
+		//fmt.Printf("%b", len(str))
+		//fmt.Printf("%s\n", str)
+		ret = append(ret, byte(len(str)))
+		ret = append(ret, []byte(str)...)
+	}
+	return ret
 }

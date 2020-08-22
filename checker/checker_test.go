@@ -30,6 +30,16 @@ func TestCheckRecordNs(t *testing.T) {
 	}
 }
 
+func TestCheckRecordNsJp(t *testing.T) {
+	var domain string = "bitforest.jp"
+	var expect string = "ns1.bitforest.jp. , ns2.bitforest.jp."
+
+	err := CheckRecord("NS", domain, expect)
+	if err != nil {
+		t.Fail()
+	}
+}
+
 func TestCheckRecordNsFail(t *testing.T) {
 	var domain string = "vaddy.net"
 	var expect string = "nstest.example.com , nstest2.example.com"
