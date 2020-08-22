@@ -1,11 +1,5 @@
 package dnsmsg
 
-import (
-	"fmt"
-	"golang.org/x/net/dns/dnsmessage"
-	"testing"
-)
-
 type A struct {
 	Int32Field int32
 	ByteField  byte
@@ -30,6 +24,7 @@ func TestConnect(t *testing.T) {
 	Send(b.Bytes())
 }
 */
+/*
 func TestConnectJp(t *testing.T) {
 	id := uint16(60000)
 	h := NewHeader(id)
@@ -46,6 +41,8 @@ func TestConnectJp(t *testing.T) {
 	//rb := m.Answers[0].Body.(*dnsmessage.NSResource)
 	fmt.Println(rb.NS.String())
 }
+*/
+/*
 func TestConnectNet(t *testing.T) {
 	id := uint16(60000)
 	h := NewHeader(id)
@@ -75,14 +72,14 @@ func TestConnectNet(t *testing.T) {
 
 	//rb := m.Answers[0].Body.(*dnsmessage.NSResource)
 	//fmt.Println(rb.NS.String())
-	/*
-		fmt.Printf("%x", m.Answers[0].Body.(*dnsmessage.NSResource))
-		fmt.Printf("%s", m.Answers[0].Body)
-		fmt.Printf("%+v", m.Answers[0].Body)
-		fmt.Printf("%#v", m.Answers[0].Body)
-		fmt.Print(m.Answers[0].Body)
-		fmt.Print(m.Answers[1].Body)
-		fmt.Print(m.Answers[2].Body)
-		fmt.Print(m.Answers[3].Body)
-	*/
+
+	//fmt.Printf("%x", m.Answers[0].Body.(*dnsmessage.NSResource))
+	//fmt.Printf("%s", m.Answers[0].Body)
+	//fmt.Printf("%+v", m.Answers[0].Body)
+	//fmt.Printf("%#v", m.Answers[0].Body)
+	//fmt.Print(m.Answers[0].Body)
+	//fmt.Print(m.Answers[1].Body)
+	//fmt.Print(m.Answers[2].Body)
+	//fmt.Print(m.Answers[3].Body)
 }
+*/
