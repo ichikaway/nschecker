@@ -68,7 +68,7 @@ func getDnsResponseBytes() []byte {
 		0b00000000, 0b00000001, //class=inet
 		0b00000000, 0b00000001, 0b01010001, 0b10000000, //TTL
 		0b00000000, 0b00000110, //length
-		0b00000011, 0b01101110, 0b01110011, 0b00110010, //3ns2
+		0b00000011, 0b01101110, 0b01110011, 0b00110010, //RDATA 3ns2
 		0b11000000, 0b00001100, //RDATA offset pointer 0b00001100(12 byte offset = first byte of Question field)
 		// Authority2
 		0b11000000, 0b00001100, //NAME offset pointer 0b00001100(12 byte offset = first byte of Question field)
@@ -76,7 +76,7 @@ func getDnsResponseBytes() []byte {
 		0b00000000, 0b00000001, //class=inet
 		0b00000000, 0b00000001, 0b01010001, 0b10000000, //TTL
 		0b00000000, 0b00000110, //length
-		0b00000011, 0b01101110, 0b01110011, 0b00110001, //3ns1
+		0b00000011, 0b01101110, 0b01110011, 0b00110001, //RDATA 3ns1
 		0b11000000, 0b00001100, //RDATA offset pointer 0b00001100(12 byte offset = first byte of Question field)
 		//Additional1
 		0b11000000, 0b00111100, //NAME
