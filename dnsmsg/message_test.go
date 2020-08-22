@@ -43,6 +43,42 @@ func TestMessage(t *testing.T) {
 	fmt.Printf("bin question: %b\n", req2)
 }
 */
+func TestCreateHeaderPayload(t *testing.T) {
+	var id uint16 = 65535
+	h := NewHeader(id)
+	result := NewHeaderPayload(h)
+
+	//DNS header ID=65535, RD=0, QD=1
+	var expect []byte = []byte{
+		0b11111111, 0b11111111, //ID 16bit 65535
+		0b00000000,             //h_16 8bit
+		0b00000000,             //h_24 8bit
+		0b00000000, 0b00000001, //QD Question 16bit
+		0b00000000, 0b00000000, //AN Answer 16bit
+		0b00000000, 0b00000000, //NS Authority 16bit
+		0b00000000, 0b00000000, //AR additional 16bit
+	}
+	if bytes.Compare(result, expect) != 0 {
+		fmt.Printf("expect: %b\n", expect)
+		fmt.Printf("result: %b\n", result)
+		fmt.Printf("result: %x\n", result)
+		t.Fail()
+	}
+}
+
+func TestCreateQuestionPayload(t *testing.T) {
+	q := NewQuestion("vaddy.net", TypeNS)
+	result := NewQuestionPayload(q)
+
+	//5vaddy3net0000(type 02)(class 01)  type 02=NS, class 01=inet
+	var expect []byte = []byte{0x05, 0x76, 0x61, 0x64, 0x64, 0x79, 0x03, 0x6e, 0x65, 0x74, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00}
+	if bytes.Compare(result, expect) != 0 {
+		fmt.Printf("expect: %b\n", expect)
+		fmt.Printf("result: %b\n", result)
+		fmt.Printf("result: %x\n", result)
+		t.Fail()
+	}
+}
 
 func TestCreateDomainLabel2ndLevel(t *testing.T) {
 	var name string = "vaddy.net"
