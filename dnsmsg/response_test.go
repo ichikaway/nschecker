@@ -6,6 +6,23 @@ import (
 	"testing"
 )
 
+func TestCheckDnsSendIdOk(t *testing.T) {
+	var id uint16 = 56474 //valid DNS ID
+	message := getDnsResponseBytes()
+	result := checkValidDnsId(message, id)
+	if result == false {
+		t.Fail()
+	}
+}
+func TestCheckDnsSendIdNg(t *testing.T) {
+	var id uint16 = 60000 //invalid DNS ID
+	message := getDnsResponseBytes()
+	result := checkValidDnsId(message, id)
+	if result {
+		t.Fail()
+	}
+}
+
 func TestGetNsListFromDnsResponseNoNsServers(t *testing.T) {
 	message := []byte{}
 	_, err := getNsListFromDnsResponse(message)
@@ -52,7 +69,7 @@ func TestGetNsListFromDnsResponseJpServersFailCheck(t *testing.T) {
 func getDnsResponseBytes() []byte {
 	message := []byte{
 		//dns response header
-		0b11011100, 0b10011010, //id 16bit
+		0b11011100, 0b10011010, //id 16bit  uint16=56474
 		0b10000000, 0b00000000, //QR=1 response
 		0b00000000, 0b00000001, //Question
 		0b00000000, 0b00000000, //Answer
