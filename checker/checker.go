@@ -71,5 +71,6 @@ func CheckRecord(qType string, domainName string, expectString string) error {
 			return errors.New("Error: not match DNS record value.\n" + message)
 		}
 	}
+	fmt.Println("PASS.  No problems.")
 	return nil
 }
