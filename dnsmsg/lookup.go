@@ -70,6 +70,10 @@ func lookupFromDnsRoot(domainName string, dnsServer string) ([]string, error) {
 		return nil, err
 	}
 
+	if checkValidDnsId(message, id) == false {
+		return nil, errors.New("Not match DNS ID value.")
+	}
+
 	ret, err := getNsListFromDnsResponse(message)
 	if err != nil {
 		return nil, err
