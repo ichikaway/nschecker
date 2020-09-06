@@ -12,10 +12,9 @@ If you run cron regularly, it will only notify you of slack when there is a prob
 If the following conditions are met, the NS records will be retrieved from the DNS Root server and will not be affected by caching.
 
 - One of the following domains: .com / .net / .jp
-- 2nd/3rd level domain
 
 For example, `vaddy.net` is not affected by DNS caching because NS records are retrieved from the DNS Root server.  
-For domains with more than 4 levels, such as `foo.bar.buz.co.jp`, or other domains not listed above, the local DNS cache server is used.
+Other domains not listed above, the local DNS cache server is used.
 
 MX records refer to the local DNS cache server.
 
@@ -73,9 +72,8 @@ cronで定期実行すれば問題がある時のみslack通知するため、�
 下記の条件を満たす場合は、NSレコードについてDNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
 
 - .com / .net / .jp のいずれかのドメイン
-- 2nd/3rdレベルドメイン
 
 例えば、vaddy.net の場合はNSレコードはDNS Rootサーバから取得するためDNSキャッシュの影響はうけません。  
-foo.bar.buz.co.jpのように4階層以上のドメインや、上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
+上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
 
 MXレコードはローカルDNSキャッシュサーバを参照します。
