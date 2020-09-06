@@ -31,7 +31,7 @@ func getAuthorityServerName(domainName string) (string, error) {
 	labels := strings.Split(domainName, ".")
 
 	// supports 2nd/3rd level domain only
-	if len(labels) == 1 || len(labels) >= 4 {
+	if len(labels) == 1 {
 		return "", errors.New("not support domain level.")
 	}
 	gTldLabel := labels[len(labels)-1] //get last value in array

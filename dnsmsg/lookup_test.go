@@ -27,19 +27,6 @@ func TestGetAuthorityServerName3rdNet(t *testing.T) {
 	}
 }
 
-// not support 4th level domain
-func TestGetAuthorityServerName4thNet(t *testing.T) {
-	name := "foo.bar.vaddy.net"
-	expect := ""
-	result, err := getAuthorityServerName(name)
-	if err == nil {
-		t.Fail()
-	}
-	if result != expect {
-		t.Fail()
-	}
-}
-
 func TestGetAuthorityServerName2ndJp(t *testing.T) {
 	name := "bitforest.jp"
 	expect := "a.dns.jp"
@@ -56,19 +43,6 @@ func TestGetAuthorityServerName3rdJp(t *testing.T) {
 	expect := "a.dns.jp"
 	result, err := getAuthorityServerName(name)
 	if err != nil {
-		t.Fail()
-	}
-	if result != expect {
-		t.Fail()
-	}
-}
-
-// not support 4th level domain
-func TestGetAuthorityServerName4thJp(t *testing.T) {
-	name := "foo.bar.bitforest.jp"
-	expect := ""
-	result, err := getAuthorityServerName(name)
-	if err == nil {
 		t.Fail()
 	}
 	if result != expect {
