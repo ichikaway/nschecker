@@ -66,6 +66,11 @@ func TestGetNsListFromDnsResponseJpServersFailCheck(t *testing.T) {
 	}
 }
 
+func TestAa(t *testing.T) {
+	message := getDnsResponseBytes()
+	getNsListFromDnsResponse2(message)
+}
+
 func getDnsResponseBytes() []byte {
 	message := []byte{
 		//dns response header
