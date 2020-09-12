@@ -1,5 +1,9 @@
 # NSchecker changelog
 
+## Ver 0.05 (2020/9/12)
+support all level domain for checking NS.  
+Not use the x/net/dns/dnsmessage package, use my function to read dns response data.
+
 ## Ver 0.04 (2020/8/17)
 support 3rd level domain.
 
