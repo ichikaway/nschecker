@@ -3,43 +3,19 @@ package dnsmsg
 import (
 	"encoding/binary"
 	"errors"
-	"fmt"
-	"golang.org/x/net/dns/dnsmessage"
 )
 
 func getNsListFromDnsResponse(message []byte) ([]string, error) {
-	//fmt.Printf("dnsresponse: %s\n", message)
-	//fmt.Printf("dnsresponse: %#08b\n", message)
-	//fmt.Printf("dnsresponse: %#b\n", message)
-	//fmt.Printf("dnsresponse: %08b\n", message)
-	//fmt.Printf("dnsresponse: %x\n", message)
-	var ret []string
-	var m dnsmessage.Message
-	err := m.Unpack(message)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(m.Authorities) == 0 {
-		return nil, errors.New("NS Lookup Error. No NS servers from DNS root.\n")
-	}
-
-	for _, authrotiy := range m.Authorities {
-		rr := authrotiy.Body.(*dnsmessage.NSResource)
-		ret = append(ret, rr.NS.String())
-	}
-	return ret, nil
-}
-
-func getNsListFromDnsResponse2(message []byte) ([]string, error) {
 	const headerByteLen int = 12
 	const typeByteLen int = 2
 	const classByteLen int = 2
-	const nullByteLen int = 1
 
 	var ret []string
 	var readCounter int = 0 //現在メッセージの何バイト目まで読み込んだかを示すカウンター
 
+	if len(message) < headerByteLen {
+		return nil, errors.New("No DNS response data.")
+	}
 	header := message[:headerByteLen]
 	readCounter = headerByteLen
 
@@ -50,24 +26,42 @@ func getNsListFromDnsResponse2(message []byte) ([]string, error) {
 	if qCount != 1 {
 		return nil, errors.New("Question count needs 1")
 	}
-	if answerCount != 0 {
-		return nil, errors.New("Answer count needs 0")
-	}
 	if nsCount == 0 {
 		return nil, errors.New("Authrity count needs more than 1")
 	}
 
 	// ---- read Question section ----
-	qName, qRead, err := readName(message, readCounter)
+	_, qRead, err := readName(message, readCounter)
 	if err != nil {
 		return nil, err
 	}
-	readCounter = readCounter + qRead + nullByteLen + typeByteLen + classByteLen
-	fmt.Printf("%s, %d, %d", qName, qRead, readCounter)
+	readCounter = readCounter + qRead + typeByteLen + classByteLen
+	//fmt.Printf("%s, %d, %d\n", qName, qRead, readCounter)
+
+	// ----- read Answer section ----
+	//使わないので読み捨てるだけ
+	if answerCount > 0 {
+		for i := 0; i < int(answerCount); i++ {
+			readCounter += 12 //RDATAまでスキップ
+			_, answerRead, err := readName(message, readCounter)
+			if err != nil {
+				return nil, err
+			}
+			readCounter = readCounter + answerRead
+		}
+	}
 
 	// ----- read Authority section ----
-	// todo nsCountの数だけreadNameしてretの配列に入れる
-	// nsのreadNameは名前圧縮があるのでreadNameを再帰的な動きにさせる
+	for i := 0; i < int(nsCount); i++ {
+		readCounter += 12 //RDATAまでスキップ
+		nsName, nsRead, err := readName(message, readCounter)
+		if err != nil {
+			return nil, err
+		}
+		readCounter = readCounter + nsRead
+		//fmt.Printf("%s, %d, %d\n", nsName, nsRead, readCounter)
+		ret = append(ret, nsName)
+	}
 
 	return ret, nil
 }
@@ -77,15 +71,42 @@ func getNsListFromDnsResponse2(message []byte) ([]string, error) {
 // readByte means read byte size
 func readName(message []byte, readCounter int) (name string, readByte int, err error) {
 	const dot byte = 0x2e
+	const nullByteLen int = 1
+
 	data := message[readCounter:]
 	var labelCount uint8 = 0
 	var nameByte []byte = make([]byte, 0, 50)
 	for readByte, byteData := range data {
 		if byteData == 0x00 {
-			name = string(nameByte[1:]) //先頭のドットは不要
-			return name, readByte, nil
+			if nameByte[0] == dot {
+				//先頭のドットは不要
+				nameByte = nameByte[1:]
+			}
+			name = string(nameByte) + string(dot)
+			return name, readByte + nullByteLen, nil
 		}
 		if labelCount == 0 {
+			//label count0の場合はラベルの数字のため、圧縮されていないか確認
+			if byteData > 63 {
+				//圧縮先の参照データの先頭からのバイト数を取得
+				//  upperの上位2ビットを落とす
+				//  underの8bitとupperを8shiftしたものを足したint16の数
+				var upper int16 = int16(byteData & 0b00111111)
+				var under int16 = int16(data[readByte+1])
+				var compressedCounter int16 = upper<<8 + under
+				compressedNameString, _, err := readName(message, int(compressedCounter))
+				if err != nil {
+					return "", 0, err
+				}
+				if nameByte[0] == dot {
+					//先頭のドットは不要
+					nameByte = nameByte[1:]
+				}
+				name = string(nameByte) + string(dot) + compressedNameString
+				readByte += 2 //label文字数とフラグメントのポインタのバイトを足す
+				return name, readByte, nil
+			}
+
 			//labelCount=0はラベル文字数を読み取り、ドットの文字を連結
 			nameByte = append(nameByte, dot)
 			labelCount = byteData
