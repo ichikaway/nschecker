@@ -82,7 +82,11 @@ func readName(message []byte, readCounter int) (name string, readByte int, err e
 				//先頭のドットは不要
 				nameByte = nameByte[1:]
 			}
-			name = string(nameByte) + string(dot)
+			name = string(nameByte)
+			if nameByte[len(nameByte)-1] != dot {
+				//最後がドットで終わってなければドットを付与する
+				name = name + string(dot)
+			}
 			return name, readByte + nullByteLen, nil
 		}
 		if labelCount == 0 {
@@ -94,7 +98,7 @@ func readName(message []byte, readCounter int) (name string, readByte int, err e
 				var upper int16 = int16(byteData & 0b00111111)
 				var under int16 = int16(data[readByte+1])
 				var compressedCounter int16 = upper<<8 + under
-				compressedNameString, _, err := readName(message, int(compressedCounter))
+				compressedNameString, _, err := readName(message, int(compressedCounter)) //圧縮先で読んだバイト数は不要
 				if err != nil {
 					return "", 0, err
 				}
