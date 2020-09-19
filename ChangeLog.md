@@ -1,5 +1,8 @@
 # NSchecker changelog
 
+## Ver 0.06 (2020/9/19)
+support all domains for checking NS without local dns cache.  
+
 ## Ver 0.05 (2020/9/12)
 support all level domain for checking NS.  
 Not use the x/net/dns/dnsmessage package, use my function to read dns response data.

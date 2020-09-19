@@ -9,12 +9,7 @@ If you run cron regularly, it will only notify you of slack when there is a prob
 
 
 ## Lookup with No dns cache
-If the following conditions are met, the NS records will be retrieved from the DNS Root server and will not be affected by caching.
-
-- One of the following domains: .com / .net / .jp
-
-For example, `vaddy.net` is not affected by DNS caching because NS records are retrieved from the DNS Root server.  
-Other domains not listed above, the local DNS cache server is used.
+The NS records will be retrieved from the DNS Root servers(Authority servers) and will not be affected by caching.
 
 MX records refer to the local DNS cache server.
 
@@ -69,11 +64,6 @@ cronで定期実行すれば問題がある時のみslack通知するため、�
 
 ## DNSキャッシュの影響は? 
 
-下記の条件を満たす場合は、NSレコードについてDNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
-
-- .com / .net / .jp のいずれかのドメイン
-
-例えば、vaddy.net の場合はNSレコードはDNS Rootサーバから取得するためDNSキャッシュの影響はうけません。  
-上記のドメイン以外の場合はローカルDNSキャッシュサーバを使います。 
+TLD権威サーバに登録されているNSレコードについては、DNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
 
 MXレコードはローカルDNSキャッシュサーバを参照します。

@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var VERSION = "0.05"
+var VERSION = "0.06"
 
 func showError() {
 	fmt.Printf("USAGE: go run NsCheck.go Type(NS or MX) 'domain' 'ns records' \n")

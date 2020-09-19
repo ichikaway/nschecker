@@ -7,15 +7,6 @@ import (
 	"strings"
 )
 
-// DNS gTLD servers Array.
-func getTldServers() map[string]string {
-	servers := make(map[string]string, 3)
-	servers["com"] = "m.gtld-servers.net"
-	servers["net"] = "m.gtld-servers.net"
-	servers["jp"] = "a.dns.jp"
-	return servers
-}
-
 func Lookup(domainName string) ([]string, error) {
 	server, err := getAuthorityServerName(domainName)
 	if err != nil {
@@ -30,17 +21,24 @@ func Lookup(domainName string) ([]string, error) {
 func getAuthorityServerName(domainName string) (string, error) {
 	labels := strings.Split(domainName, ".")
 
-	// supports 2nd/3rd level domain only
 	if len(labels) == 1 {
 		return "", errors.New("not support domain level.")
 	}
 	gTldLabel := labels[len(labels)-1] //get last value in array
-	servers := getTldServers()
-	server, ok := servers[gTldLabel]
-	if !ok {
+	server, err := getTldNameServer(gTldLabel)
+	if err != nil {
 		return "", errors.New("not support TLD name.")
 	}
 	return server, nil
+}
+
+// get TLD NS server name from full resolver server.
+func getTldNameServer(tldName string) (string, error) {
+	servers, err := lookupFromDnsCacheServer(tldName)
+	if err != nil {
+		return "", err
+	}
+	return servers[0], nil
 }
 
 func lookupFromDnsCacheServer(domainName string) ([]string, error) {
