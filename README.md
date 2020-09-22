@@ -44,7 +44,7 @@ go run NSchecker.go Type(NS/MX) <your domain> <NS records with comma>
 
 ### Example
 ```
-./bin/nschecker-linux-64bit NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
+./nschecker-linux-64bit NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
 ```
 
 ## Results
