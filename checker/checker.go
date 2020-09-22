@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
-	"nscheck/dnsmsg"
+	"nschecker/dnsmsg"
 	"strings"
 )
 

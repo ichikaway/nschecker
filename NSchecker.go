@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"nscheck/checker"
-	"nscheck/notification"
+	"nschecker/checker"
+	"nschecker/notification"
 	"os"
 )
 
-var VERSION = "0.06"
+var VERSION = "0.0.7"
 
 func showError() {
 	fmt.Printf("USAGE: go run NsCheck.go Type(NS or MX) 'domain' 'ns records' \n")
