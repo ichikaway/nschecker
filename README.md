@@ -16,8 +16,11 @@ MX records refer to the local DNS cache server(full resolver).
 
 ## Usage
 #### Download exe binary
-Download from here.   
+Download linux/macOS binary from here.   
 https://github.com/ichikaway/nschecker/releases/
+
+Download latest linux binary directly.  
+https://github.com/ichikaway/nschecker/releases/latest/download/nschecker-linux-64bit
 
 
 #### for Linux user
