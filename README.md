@@ -15,6 +15,11 @@ MX records refer to the local DNS cache server.
 
 
 ## Usage
+#### Download exe binary
+Download from here.   
+https://github.com/ichikaway/nschecker/releases/
+
+
 #### for Linux user
 ```
 ./bin/nschecker-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
@@ -22,7 +27,7 @@ MX records refer to the local DNS cache server.
 
 #### for Mac user
 ```
-./bin/nschecker-macosx-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./bin/nschecker-macOS-64bit Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 #### or, go run command.
