@@ -12,21 +12,13 @@ builds:
       - CGO_ENABLED=0
 archives:
 -
-  id: archive-version
-  format: binary
-  name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-  replacements:
-    darwin: Darwin
-    linux: Linux
-    amd64: x86_64
--
   id: archive-no-version
   format: binary
-  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
   replacements:
-    darwin: Darwin
-    linux: Linux
-    amd64: x86_64
+    darwin: macOS
+    linux: linux
+    amd64: 64bit
 checksum:
   name_template: checksums.txt
 snapshot:
