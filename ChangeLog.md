@@ -1,5 +1,9 @@
 # NSchecker changelog
 
+## Ver 0.07 (2020/9/22)
+change semantic versioning.  
+change import package name from nacheck to nschecker.
+
 ## Ver 0.06 (2020/9/19)
 support all domains for checking NS without local dns cache.  
 
