@@ -22,15 +22,19 @@ https://github.com/ichikaway/nschecker/releases/
 Download latest linux binary directly.  
 https://github.com/ichikaway/nschecker/releases/latest/download/nschecker-linux-64bit
 
+```
+wget https://github.com/ichikaway/nschecker/releases/latest/download/nschecker-linux-64bit
+chmod 700 nschecker-linux-64bit
+```
 
 #### for Linux user
 ```
-./bin/nschecker-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./nschecker-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 #### for Mac user
 ```
-./bin/nschecker-macOS-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./nschecker-macOS-64bit Type(NS/MX) <your domain> <NS records with comma> 
 ```
 
 #### or, go run command.
