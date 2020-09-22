@@ -9,9 +9,9 @@ If you run cron regularly, it will only notify you of slack when there is a prob
 
 
 ## Lookup with No dns cache
-The NS records will be retrieved from the DNS Root servers(Authority servers) and will not be affected by caching.
+The NS records are retrieved from the DNS Root servers(authority servers) and not affected by dns cache.
 
-MX records refer to the local DNS cache server.
+MX records refer to the local DNS cache server(full resolver).
 
 
 ## Usage
