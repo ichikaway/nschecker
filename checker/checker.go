@@ -18,6 +18,18 @@ func in_array(str string, list []string) bool {
 	return false
 }
 
+func getExpectRecordValueList(expectString string) []string {
+	list := strings.Split(expectString, ",")
+	//Add last period for each record value
+	for i, v := range list {
+		v = strings.TrimSpace(v)
+		v = strings.TrimRight(v, ".")
+		v = v + "."
+		list[i] = v
+	}
+	return list
+}
+
 // for getting NS records, try to get NS rr from DNS root servers.
 func getNsRecords(domainName string) ([]string, error) {
 	return dnsmsg.Lookup(domainName)
@@ -47,7 +59,7 @@ func CheckRecord(qType string, domainName string, expectString string) error {
 		records, err = getMxRecords(domainName)
 	}
 
-	nsValueList := strings.Split(expectString, ",")
+	nsValueList := getExpectRecordValueList(expectString)
 
 	if err != nil {
 		return errors.New("Error: Lookup Error.\n")
