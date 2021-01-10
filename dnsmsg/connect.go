@@ -2,11 +2,14 @@ package dnsmsg
 
 import (
 	"net"
+	"time"
 )
 
 // send UDP Packet and get response.
 func Send(address string, message []byte) ([]byte, error) {
-	conn, err := net.Dial("udp4", address)
+	timeout := 10 * time.Second
+	d := net.Dialer{Timeout: timeout}
+	conn, err := d.Dial("udp4", address)
 	if err != nil {
 		return nil, err
 	}
