@@ -1,5 +1,10 @@
 # NSchecker changelog
 
+## Ver 1.0.1 (2021/1/10)
+Allow no last period in expect value of FQDN.  
+Handle timeout of UDP connection.
+
+
 ## Ver 1.0.0 (2020/9/22)
 Released ver1.0.0 !!  
 download exec binary from github releases page.
