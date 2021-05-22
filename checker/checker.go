@@ -11,7 +11,7 @@ import (
 func in_array(str string, list []string) bool {
 	for _, v := range list {
 		v = strings.TrimSpace(v)
-		if v == str {
+		if strings.ToLower(v) == strings.ToLower(str) {
 			return true
 		}
 	}
