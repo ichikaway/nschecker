@@ -11,6 +11,24 @@ func TestInArray(t *testing.T) {
 	}
 }
 
+func TestInArrayCaseInsensitive(t *testing.T) {
+	var needle string = "VADDY.NET"
+	var haystack = []string{"vaddy.net", "hoge.vaddy.net"}
+
+	if !in_array(needle, haystack) {
+		t.Fail()
+	}
+}
+
+func TestInArrayCaseInsensitiveInHaystack(t *testing.T) {
+	var needle string = "vaddy.net"
+	var haystack = []string{"VADDY.NET", "HOGE.VADDY.NET"}
+
+	if !in_array(needle, haystack) {
+		t.Fail()
+	}
+}
+
 func TestInArrayNotFound(t *testing.T) {
 	var needle string = "foo"
 	var haystack = []string{"vaddy.net", "hoge.vaddy.net"}
@@ -30,9 +48,19 @@ func TestCheckRecordNs(t *testing.T) {
 	}
 }
 
+func TestCheckRecordNsCaseInsensitiveCheck(t *testing.T) {
+	var domain string = "vaddy.net"
+	var expect string = "NS-1151.AWSDNS-15.ORG. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net."
+
+	err := CheckRecord("NS", domain, expect)
+	if err != nil {
+		t.Fail()
+	}
+}
+
 func TestCheckRecordNsJp(t *testing.T) {
 	var domain string = "bitforest.jp"
-	var expect string = "ns1.bitforest.jp. , ns2.bitforest.jp."
+	var expect string = "ns-722.awsdns-26.net. , ns-254.awsdns-31.com. , ns-1740.awsdns-25.co.uk. , ns-1319.awsdns-36.org."
 
 	err := CheckRecord("NS", domain, expect)
 	if err != nil {
@@ -42,7 +70,7 @@ func TestCheckRecordNsJp(t *testing.T) {
 
 func TestCheckRecordNsJpNoLastPeriod(t *testing.T) {
 	var domain string = "bitforest.jp"
-	var expect string = "ns1.bitforest.jp , ns2.bitforest.jp"
+	var expect string = "ns-722.awsdns-26.net , ns-254.awsdns-31.com , ns-1740.awsdns-25.co.uk , ns-1319.awsdns-36.org"
 
 	err := CheckRecord("NS", domain, expect)
 	if err != nil {
