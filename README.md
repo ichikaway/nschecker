@@ -47,6 +47,13 @@ go run NSchecker.go -type Type(NS/MX) -domain <your domain> -expect <NS records 
 ./nschecker-linux-64bit -type NS -domain "vaddy.net"  -expect "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
 ```
 
+## options
+### silent mode option
+`-mode silent` no message to stdout. only output error messages to stderr.
+```
+./nschecker-linux-64bit -type NS -domain "vaddy.net"  -expect "ns-1151.awsdns-15.org" -mode silent 
+```
+
 ## Results
 Return status code 0 if there is no problem.  
 Return status code 1 or higher with error message if there there are problems.

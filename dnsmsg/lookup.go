@@ -2,18 +2,18 @@ package dnsmsg
 
 import (
 	"errors"
-	"fmt"
 	"net"
+	"nschecker/printer"
 	"strings"
 )
 
 func Lookup(domainName string) ([]string, error) {
 	server, err := getAuthorityServerName(domainName)
 	if err != nil {
-		fmt.Print(" ..lookup from local DNS cache server.\n\n")
+		printer.Printf(" ..lookup from local DNS cache server.\n\n")
 		return lookupFromDnsCacheServer(domainName)
 	}
-	fmt.Printf(" ..lookup from DNS root server: %s \n\n", server)
+	printer.Printf(" ..lookup from DNS root server: %s \n\n", server)
 	return lookupFromDnsRoot(domainName, server)
 }
 

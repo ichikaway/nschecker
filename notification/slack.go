@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"nschecker/printer"
 	"os"
 )
 
@@ -73,7 +74,7 @@ func PostSlack(title, text string, domain string, qType string) {
 		return
 	}
 
-	fmt.Println("Sending warning message to slack.")
+	printer.Printf("Sending warning message to slack.\n")
 
 	params := createSlackMessage(title, text, domain, qType)
 

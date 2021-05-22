@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"nschecker/dnsmsg"
+	"nschecker/printer"
 	"strings"
 )
 
@@ -37,7 +38,7 @@ func getNsRecords(domainName string) ([]string, error) {
 
 func getMxRecords(domainName string) ([]string, error) {
 	var ret []string
-	fmt.Print(" ..lookup from local DNS cache server.\n\n")
+	printer.Printf(" ..lookup from local DNS cache server.\n\n")
 	nss, err := net.LookupMX(domainName)
 	if err != nil {
 		return nil, errors.New("MX Lookup Error.\n")
@@ -83,6 +84,6 @@ func CheckRecord(qType string, domainName string, expectString string) error {
 			return errors.New("Error: not match DNS record value.\n" + message)
 		}
 	}
-	fmt.Println("PASS.  No problems.")
+	printer.Printf("PASS.  No problems.\n")
 	return nil
 }
