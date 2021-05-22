@@ -5,6 +5,6 @@ import (
 	"os"
 )
 
-func ErrorPrint(format string, a ...interface{}) {
+func ErrorPrintf(format string, a ...interface{}) {
 	fmt.Fprintf(os.Stderr, format, a...)
 }

@@ -39,7 +39,7 @@ func main() {
 		nsListString = *nsListString2
 
 		if *mode == "silent" {
-			printer.Printf = printer.PrinterNothing
+			printer.SilentModeOn()
 		}
 	} else {
 		qType = os.Args[1]

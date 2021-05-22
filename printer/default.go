@@ -4,12 +4,19 @@ import (
 	"fmt"
 )
 
-var Printf = DefaultPrintf
-var ErrorPrintf = ErrorPrint
+var handlePrintf = defaultPrintf
 
-func DefaultPrintf(format string, a ...interface{}) {
+func Printf(format string, a ...interface{}) {
+	handlePrintf(format, a...)
+}
+
+func SilentModeOn() {
+	handlePrintf = printerNothing
+}
+
+func defaultPrintf(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 }
 
-func PrinterNothing(format string, a ...interface{}) {
+func printerNothing(format string, a ...interface{}) {
 }
