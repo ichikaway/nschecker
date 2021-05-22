@@ -22,8 +22,6 @@ func main() {
 	var domainName string
 	var nsListString string
 
-	printer.Printf = printer.PrinterDefault
-
 	if len(os.Args) < 4 {
 		showVersion()
 		showError()
