@@ -29,22 +29,22 @@ chmod 700 nschecker-linux-64bit
 
 #### for Linux user
 ```
-./nschecker-linux-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./nschecker-linux-64bit -type Type(NS/MX) -domain <your domain> -expect <NS records with comma> 
 ```
 
 #### for Mac user
 ```
-./nschecker-macOS-64bit Type(NS/MX) <your domain> <NS records with comma> 
+./nschecker-macOS-64bit -type Type(NS/MX) -domain <your domain> -expect <NS records with comma> 
 ```
 
 #### or, go run command.
 ```
-go run NSchecker.go Type(NS/MX) <your domain> <NS records with comma> 
+go run NSchecker.go -type Type(NS/MX) -domain <your domain> -expect <NS records with comma> 
 ```
 
 ### Example
 ```
-./nschecker-linux-64bit NS "vaddy.net" "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
+./nschecker-linux-64bit -type NS -domain "vaddy.net"  -expect "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net." 
 ```
 
 ## Results
