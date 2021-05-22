@@ -4,10 +4,10 @@ import (
 	"fmt"
 )
 
-var Printf = PrinterDefault
+var Printf = DefaultPrintf
 var ErrorPrintf = ErrorPrint
 
-func PrinterDefault(format string, a ...interface{}) {
+func DefaultPrintf(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 }
 
