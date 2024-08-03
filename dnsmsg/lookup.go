@@ -8,37 +8,53 @@ import (
 )
 
 func Lookup(domainName string) ([]string, error) {
-	server, err := getAuthorityServerName(domainName)
+	servers, err := getAuthorityServerName(domainName)
 	if err != nil {
 		printer.Printf(" ..lookup from local DNS cache server.\n\n")
 		return lookupFromDnsCacheServer(domainName)
 	}
-	printer.Printf(" ..lookup from DNS root server: %s \n\n", server)
-	return lookupFromDnsRoot(domainName, server)
+
+	var ret []string
+	var cnt int = 0
+	for index, server := range servers {
+		printer.Printf(" ..lookup from DNS root server: %s \n\n", server)
+		ret, err = lookupFromDnsRoot(domainName, server)
+		if err != nil {
+			printer.Printf("  [%d] error(lookup from root server): %s \n", index, err)
+		} else {
+			break
+		}
+		cnt++
+		if cnt > 3 {
+			printer.Printf("  lookup exceeded(lookup from root server) \n")
+			return ret, err
+		}
+	}
+	return ret, err
 }
 
 // get DNS server for looking up name from DNS root servers.
-func getAuthorityServerName(domainName string) (string, error) {
+func getAuthorityServerName(domainName string) ([]string, error) {
 	labels := strings.Split(domainName, ".")
 
 	if len(labels) == 1 {
-		return "", errors.New("not support domain level.")
+		return []string{}, errors.New("not support domain level.")
 	}
 	gTldLabel := labels[len(labels)-1] //get last value in array
-	server, err := getTldNameServer(gTldLabel)
+	servers, err := getTldNameServer(gTldLabel)
 	if err != nil {
-		return "", errors.New("not support TLD name.")
+		return []string{}, errors.New("not support TLD name.")
 	}
-	return server, nil
+	return servers, nil
 }
 
 // get TLD NS server name from full resolver server.
-func getTldNameServer(tldName string) (string, error) {
+func getTldNameServer(tldName string) ([]string, error) {
 	servers, err := lookupFromDnsCacheServer(tldName)
 	if err != nil {
-		return "", err
+		return []string{}, err
 	}
-	return servers[0], nil
+	return servers, nil
 }
 
 func lookupFromDnsCacheServer(domainName string) ([]string, error) {

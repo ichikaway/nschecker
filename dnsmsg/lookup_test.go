@@ -12,7 +12,7 @@ func TestGetAuthorityServerName2ndNet(t *testing.T) {
 	if err != nil {
 		t.Fail()
 	}
-	if !expect.MatchString(result) {
+	if !expect.MatchString(result[0]) {
 		t.Error(result)
 		t.Fail()
 	}
@@ -24,7 +24,7 @@ func TestGetAuthorityServerName3rdNet(t *testing.T) {
 	if err != nil {
 		t.Fail()
 	}
-	if !expect.MatchString(result) {
+	if !expect.MatchString(result[0]) {
 		t.Error(result)
 		t.Fail()
 	}
@@ -37,7 +37,7 @@ func TestGetAuthorityServerName2ndJp(t *testing.T) {
 	if err != nil {
 		t.Fail()
 	}
-	if !expect.MatchString(result) {
+	if !expect.MatchString(result[0]) {
 		t.Error(result)
 		t.Fail()
 	}
@@ -49,7 +49,7 @@ func TestGetAuthorityServerName3rdJp(t *testing.T) {
 	if err != nil {
 		t.Fail()
 	}
-	if !expect.MatchString(result) {
+	if !expect.MatchString(result[0]) {
 		t.Error(result)
 		t.Fail()
 	}
