@@ -86,3 +86,23 @@ cronで定期実行すれば問題がある時のみslack通知するため、�
 TLD権威サーバに登録されているNSレコードについては、DNS Rootサーバからデータを取得するため、キャッシュの影響はうけません。
 
 MXレコードはローカルDNSキャッシュサーバを参照します。
+
+
+## Run with Docker
+Build the image.
+```
+docker build -t nschecker .
+```
+
+Run it (pass the same options as the binary).
+```
+docker run --rm nschecker -type NS -domain "vaddy.net" -expect "ns-1151.awsdns-15.org. , ns-1908.awsdns-46.co.uk. , ns-457.awsdns-57.com. , ns-700.awsdns-23.net."
+```
+
+To send Slack notifications, pass the env vars with `-e`.
+```
+docker run --rm \
+  -e SLACK_WEBHOOK_URL="webhook url" \
+  -e SLACK_FREE_TEXT="<!channel> from docker" \
+  nschecker -type NS -domain "vaddy.net" -expect "ns-1151.awsdns-15.org."
+```

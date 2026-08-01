@@ -1,0 +1,6 @@
+.git
+.github
+.idea
+dist
+tools
+*.md
